@@ -28,16 +28,35 @@ function Image(props) {
 //}
 
 class MovieItem extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      show: false
+    };
+  }
+
   render() {
     const {
-      data: { title, vote_average, image }
+      data: { title, vote_average, image, overview }
     } = this.props;
-    console.log(this);
+    console.log("state", this.state);
     return (
       <div>
         <Image srt={image} alt={title} />
         <p>{title}</p>
         <p>{vote_average}</p>
+        <button
+          type="button"
+          onClick={() => {
+            console.log("show");
+            this.setState({
+              show: true
+            });
+          }}
+        >
+          show
+        </button>
+        {this.state.show ? <p>{overview}</p> : null}
       </div>
     );
   }
