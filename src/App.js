@@ -31,9 +31,22 @@ class MovieItem extends React.Component {
   constructor() {
     super();
     this.state = {
-      show: false
+      show: false,
+      like: false
     };
   }
+
+  toogleOverview = () => {
+    this.setState({
+      show: !this.state.show
+    });
+  };
+
+  handleLike = () => {
+    this.setState({
+      like: !this.state.like
+    });
+  };
 
   render() {
     const {
@@ -45,18 +58,20 @@ class MovieItem extends React.Component {
         <Image srt={image} alt={title} />
         <p>{title}</p>
         <p>{vote_average}</p>
-        <button
-          type="button"
-          onClick={() => {
-            console.log("show");
-            this.setState({
-              show: true
-            });
-          }}
-        >
-          show
-        </button>
-        {this.state.show ? <p>{overview}</p> : null}
+        <div style={{ dislay: "flex", justifyContent: "space-between" }}>
+          <button type="button" onClick={this.toogleOverview}>
+            {this.state.show ? "show" : "hide"}
+          </button>
+          <button
+            type="button"
+            onClick={this.handleLike}
+            className={this.state.like ? "btn--like" : ""}
+            // style={{ background: this.state.like ? "blue" : "white" }}
+          >
+            Like
+          </button>
+        </div>
+        <p>{this.state.show ? "overview" : null}</p>
       </div>
     );
   }
